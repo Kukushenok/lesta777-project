@@ -1,0 +1,135 @@
+# ----------- References -----------------
+# https://refactoring.ninja/posts/2021-07-15-publishing-a-unity-webgl-game-from-scratch-in-under-30-minutes/#activate-unity-license-for-your-repository
+# ----------------------------------------
+
+# This is a basic workflow to help you get started with Actions
+
+name: Build And Push To Itch
+
+# manually 
+# https://github.blog/changelog/2020-07-06-github-actions-manual-triggers-with-workflow_dispatch/
+# 
+# https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#onpushpull_requestpaths
+on:
+  workflow_dispatch: {}
+
+env:
+  VERSIONING_FILE_PATH: "unity-version.txt"
+  BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+  BUILD_OUTPUT_PATH: build
+  BUTLER_PATH: ./butler_folder
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  unity_build:
+    name: Web Build and deployment
+    runs-on: ubuntu-latest
+    strategy:
+      # fail-fast: false
+      matrix:
+        include:
+        - targetPlatform: StandaloneWindows64
+          butlerChannel: windows
+        - targetPlatform: WebGL
+          butlerChannel: html5
+
+    # Map a step output to a job output
+    outputs:
+      unityVersion: ${{ steps.version_output.outputs.unityVersion }}
+      buildArtifact: ${{ steps.artifact_output.outputs.buildArtifactName }}
+
+    steps:
+      # Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Current folder path
+        run: pwd
+  
+      - name: Free Disk Space :3
+        run: |
+          sudo swapoff -a
+          sudo rm -f /swapfile
+          sudo apt clean
+          df -h
+
+      - name: Directory content before build
+        run: ls -al
+      - name: Read file and set environment variables
+        run: |
+          while IFS= read -r line; do
+            if [[ "$line" =~ ^[A-Za-z_][A-Za-z0-9_]*=.* ]]; then
+              echo "$line" >> $GITHUB_ENV
+            fi
+          done < build-info.txt
+      # Cache
+      - uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-${{ matrix.targetPlatform }}
+          
+      # Get Unity version from file
+      - name: Get Unity Version
+        uses: akiojin/unity-get-version-github-action@v1.1.4
+        id: unity-get-version
+        with:
+          project-directory: "./"
+
+        # run: echo "UNITY_VERSION=${{ steps.read_file.outputs.contents }}" >> $GITHUB_ENV
+
+      - name: Setting Artifact name env variable
+        run: echo "BUILD_ARTIFACT_NAME=${{ env.RELEASE_NAME }}-${{ matrix.targetPlatform }}-${{ steps.unity-get-version.outputs.version }}.$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
+        
+      - name: Set job outputs - unityVersion
+        id: artifact_output
+        run: echo "::set-output name=buildArtifactName::${{ env.BUILD_ARTIFACT_NAME }}"
+
+      - name: Tree structure
+        run: |
+          sudo apt-get install tree
+          mkdir -p ${{ env.BUILD_OUTPUT_PATH }}
+          tree ${{ env.BUILD_OUTPUT_PATH }}
+
+      - name: Building game
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          # Path where the builds should be stored.
+          buildsPath: ${{ env.BUILD_OUTPUT_PATH}}
+          buildName: ${{ env.BUILD_NAME}}
+          # Version of unity to use for building the project.
+          unityVersion: ${{ steps.unity-get-version.outputs.version }}
+          # Platform that the build should target.
+          targetPlatform: ${{ matrix.targetPlatform }}
+          # Custom parameters to configure the build.
+          # Parameters must start with a hyphen (-) and may be followed by a value (without hyphen). Parameters without a value will be considered booleans (with a value of true).
+          # customParameters: '-nographics' # <--- This is the important bit [https://github.com/webbertakken/unity-builder/issues/153]
+
+      - name: Directory content after build
+        run: ls -al
+
+      - name: Tree structure
+        run: |
+          sudo apt-get install tree
+          tree ${{ env.BUILD_OUTPUT_PATH }}
+
+      # Output
+      - name: Archive (IT HOLDS THE LINK FOR THE .ZIP BUILD)
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.BUILD_ARTIFACT_NAME }}
+          path: ${{ env.BUILD_OUTPUT_PATH }}/${{ matrix.targetPlatform }}
+
+      - name: Butler Push
+        uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ env.BUTLER_API_KEY }}
+          CHANNEL: ${{ matrix.butlerChannel }}
+          ITCH_GAME: ${{ env.ITCHIO_GAME }}
+          ITCH_USER: ${{ env.ITCHIO_USER }}
+          PACKAGE: build/${{ matrix.targetPlatform }}

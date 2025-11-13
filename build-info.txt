@@ -1,0 +1,4 @@
+ITCHIO_GAME=lesta777jam
+ITCHIO_USER=sevenbcompany
+BUILD_NAME=MyProjectBuildName
+RELEASE_NAME=MyProjectReleaseName
