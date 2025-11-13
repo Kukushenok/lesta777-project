@@ -79,8 +79,8 @@ jobs:
 
         # run: echo "UNITY_VERSION=${{ steps.read_file.outputs.contents }}" >> $GITHUB_ENV
 
-      - name: Setting Artifact name env variable
-        run: echo "BUILD_ARTIFACT_NAME=${{ env.RELEASE_NAME }}-${{ matrix.targetPlatform }}-${{ steps.unity-get-version.outputs.version }}.$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
+      - name: Setting Artifact name env variable #better use steps.unity-get-version.outputs.version
+        run: echo "BUILD_ARTIFACT_NAME=${{ env.RELEASE_NAME }}-${{ matrix.targetPlatform }}-${{ env.UNITY_VERSION }}.$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
         
       - name: Set job outputs - unityVersion
         id: artifact_output
@@ -102,8 +102,8 @@ jobs:
           # Path where the builds should be stored.
           buildsPath: ${{ env.BUILD_OUTPUT_PATH}}
           buildName: ${{ env.BUILD_NAME}}
-          # Version of unity to use for building the project.
-          unityVersion: ${{ steps.unity-get-version.outputs.version }}
+          # Version of unity to use for building the project. # better use steps.unity-get-version.outputs.version
+          unityVersion: ${{ env.UNITY_VERSION }}
           # Platform that the build should target.
           targetPlatform: ${{ matrix.targetPlatform }}
           # Custom parameters to configure the build.

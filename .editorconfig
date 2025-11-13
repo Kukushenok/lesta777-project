@@ -1,0 +1,178 @@
+#############################################
+#  Unity / C# StyleCop-like .editorconfig   #
+#############################################
+
+root = true
+
+# -----------------------------
+# Core formatting
+# -----------------------------
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.cs]
+indent_style = space
+indent_size = 4
+
+# -----------------------------
+# Braces and newlines
+# -----------------------------
+csharp_new_line_before_open_brace = all
+csharp_new_line_before_else = true
+csharp_new_line_before_catch = true
+csharp_new_line_before_finally = true
+csharp_new_line_before_members_in_object_initializers = false
+csharp_new_line_between_query_expression_clauses = true
+
+# -----------------------------
+# Spacing and parentheses
+# -----------------------------
+csharp_space_after_keywords_in_control_flow_statements = true
+csharp_space_between_method_declaration_parameter_list_parentheses = false
+csharp_space_between_method_call_parameter_list_parentheses = false
+csharp_space_between_method_declaration_empty_parameter_list_parentheses = false
+csharp_space_between_method_call_empty_parameter_list_parentheses = false
+csharp_space_after_cast = false
+
+# -----------------------------
+# Code style: var, braces, etc.
+# -----------------------------
+csharp_style_var_for_built_in_types = true:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_style_var_elsewhere = false:suggestion
+
+csharp_prefer_braces = true:warning
+csharp_style_prefer_switch_expression = true:suggestion
+csharp_style_throw_expression = true:suggestion
+csharp_style_conditional_delegate_call = true:suggestion
+csharp_style_prefer_pattern_matching = true:suggestion
+
+# -----------------------------
+# Using directives
+# -----------------------------
+csharp_using_directive_placement = outside_namespace:warning
+csharp_prefer_simple_using_statement = true:suggestion
+
+# -----------------------------
+# Qualification
+# -----------------------------
+dotnet_style_qualification_for_field = false:suggestion
+dotnet_style_qualification_for_property = false:suggestion
+dotnet_style_qualification_for_method = false:suggestion
+dotnet_style_qualification_for_event = false:suggestion
+
+# -----------------------------
+# Accessibility and modifiers
+# -----------------------------
+dotnet_style_require_accessibility_modifiers = always:warning
+dotnet_style_readonly_field = true:warning
+dotnet_style_prefer_auto_properties = true:suggestion
+dotnet_style_explicit_tuple_names = true:suggestion
+csharp_preferred_modifier_order = public, protected, internal, private, new, static, abstract, virtual, override, sealed, readonly, unsafe, extern:warning
+
+# -----------------------------
+# Null and expression preferences
+# -----------------------------
+csharp_style_prefer_null_check_over_type_check = true:suggestion
+csharp_style_prefer_is_null_check_over_reference_equality_method = true:suggestion
+csharp_style_prefer_index_operator = true:suggestion
+csharp_style_prefer_range_operator = true:suggestion
+dotnet_style_object_initializer = true:suggestion
+dotnet_style_collection_initializer = true:suggestion
+
+# -----------------------------
+# Documentation and header rules (disabled)
+# -----------------------------
+dotnet_diagnostic.SA1600.severity = none
+dotnet_diagnostic.SA1633.severity = none
+
+# -----------------------------
+# Naming conventions
+# -----------------------------
+# Types (classes, structs, interfaces, enums, delegates)
+dotnet_naming_rule.types_should_be_pascal_case.symbols = types
+dotnet_naming_rule.types_should_be_pascal_case.style = pascal_case
+dotnet_naming_rule.types_should_be_pascal_case.severity = warning
+
+dotnet_naming_symbols.types.applicable_kinds = class, struct, interface, enum, delegate
+
+# Non-private members (public/protected/internal)
+# Запрет public fields через naming conventions
+dotnet_naming_rule.non_private_fields_should_be_pascal_case.symbols = non_private_fields
+dotnet_naming_rule.non_private_fields_should_be_pascal_case.style = pascal_case
+dotnet_naming_rule.non_private_fields_should_be_pascal_case.severity = error
+dotnet_naming_style.pascal_case.capitalization = pascal_case
+
+# Дополнительно: делаем ошибкой любые public fields
+dotnet_diagnostic.RCS1085.severity = error  # Use auto-implemented property
+
+dotnet_naming_symbols.non_private_members.applicable_kinds = property, field, method, event
+dotnet_naming_symbols.non_private_members.applicable_accessibilities = public, protected, internal, protected_internal
+
+# Private fields
+dotnet_naming_rule.private_fields_should_have_underscore.symbols = private_fields
+dotnet_naming_rule.private_fields_should_have_underscore.style = prefix_with_underscore
+dotnet_naming_rule.private_fields_should_have_underscore.severity = warning
+
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+
+# Constants
+dotnet_naming_rule.constants_should_be_pascal_case.symbols = constants
+dotnet_naming_rule.constants_should_be_pascal_case.style = pascal_case
+dotnet_naming_rule.constants_should_be_pascal_case.severity = warning
+
+dotnet_naming_symbols.constants.applicable_kinds = field
+dotnet_naming_symbols.constants.required_modifiers = const
+
+# Styles
+dotnet_naming_style.pascal_case.capitalization = pascal_case
+dotnet_naming_style.prefix_with_underscore.capitalization = camel_case
+dotnet_naming_style.prefix_with_underscore.required_prefix = _
+
+# -----------------------------
+# Suggested rule severities
+# -----------------------------
+dotnet_analyzer_diagnostic.category-Style.severity = warning
+dotnet_analyzer_diagnostic.category-Naming.severity = warning
+dotnet_analyzer_diagnostic.category-Maintainability.severity = suggestion
+dotnet_analyzer_diagnostic.category-Formatting.severity = suggestion
+
+
+# Force naming violations to be errors
+dotnet_diagnostic.IDE1006.severity = warning
+dotnet_diagnostic.IDE1007.severity = warning
+dotnet_diagnostic.IDE1009.severity = warning
+dotnet_diagnostic.CA1051.severity = warning
+
+# optional: treat all Unity analyzer categories as warning
+dotnet_diagnostic.USP*.severity = warning
+dotnet_diagnostic.UNT*.severity = warning
+dotnet_diagnostic.USG*.severity = warning
+
+dotnet_diagnostic.RCS1018.severity = suggestion  # Add accessibility modifiers
+dotnet_diagnostic.RCS1028.severity = suggestion  # Format new line after binary operator
+dotnet_diagnostic.RCS1037.severity = suggestion  # Remove trailing white-space
+dotnet_diagnostic.RCS1041.severity = suggestion  # Remove empty initializer
+dotnet_diagnostic.RCS1043.severity = suggestion  # Remove partial modifier from type with single part
+dotnet_diagnostic.RCS1045.severity = suggestion  # Rename private field to camel case with underscore
+dotnet_diagnostic.RCS1048.severity = suggestion  # Use lambda expression instead of anonymous method
+dotnet_diagnostic.RCS1049.severity = suggestion  # Simplify boolean comparison
+dotnet_diagnostic.RCS1051.severity = suggestion  # Parenthesize condition in conditional expression
+dotnet_diagnostic.RCS1053.severity = suggestion  # Replace foreach with for
+dotnet_diagnostic.RCS1054.severity = suggestion  # Replace foreach with LINQ call
+dotnet_diagnostic.RCS1055.severity = suggestion  # Avoid semicolon at the end of declaration
+dotnet_diagnostic.RCS1057.severity = suggestion  # Add empty line between declarations
+dotnet_diagnostic.RCS1059.severity = suggestion  # Avoid locking on publicly accessible instance
+dotnet_diagnostic.RCS1069.severity = suggestion  # Remove unnecessary case label
+dotnet_diagnostic.RCS1071.severity = suggestion  # Remove redundant base constructor call
+dotnet_diagnostic.RCS1073.severity = suggestion  # Remove redundant partial modifier
+
+dotnet_diagnostic.RCS1192.severity = error
+
+# Optional: enable/disable other Roslynator rules
+dotnet_diagnostic.RCS1210.severity = warning  # Suggest readonly fields
+dotnet_diagnostic.RCS1004.severity = none     # Disable remove empty constructor
