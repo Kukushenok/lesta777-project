@@ -133,6 +133,20 @@ dotnet_naming_style.pascal_case.capitalization = pascal_case
 dotnet_naming_style.prefix_with_underscore.capitalization = camel_case
 dotnet_naming_style.prefix_with_underscore.required_prefix = _
 
+# Local variables
+dotnet_naming_symbols.local_symbol.applicable_kinds = local
+dotnet_naming_style.local_style.capitalization = camel_case
+dotnet_naming_rule.variables_are_camel_case.severity = suggestion
+dotnet_naming_rule.variables_are_camel_case.symbols = local_symbol
+dotnet_naming_rule.variables_are_camel_case.style = local_style
+
+# for parameters
+dotnet_naming_symbols.parameter_symbol.applicable_kinds = parameter
+dotnet_naming_style.parameter_style.capitalization = camel_case
+dotnet_naming_rule.parameters_are_camel_case.severity = suggestion
+dotnet_naming_rule.parameters_are_camel_case.symbols = parameter_symbol
+dotnet_naming_rule.parameters_are_camel_case.style = parameter_style
+
 # -----------------------------
 # Suggested rule severities
 # -----------------------------
@@ -149,30 +163,65 @@ dotnet_diagnostic.IDE1009.severity = warning
 dotnet_diagnostic.CA1051.severity = warning
 
 # optional: treat all Unity analyzer categories as warning
-dotnet_diagnostic.USP*.severity = warning
-dotnet_diagnostic.UNT*.severity = warning
-dotnet_diagnostic.USG*.severity = warning
-
-dotnet_diagnostic.RCS1018.severity = suggestion  # Add accessibility modifiers
-dotnet_diagnostic.RCS1028.severity = suggestion  # Format new line after binary operator
-dotnet_diagnostic.RCS1037.severity = suggestion  # Remove trailing white-space
-dotnet_diagnostic.RCS1041.severity = suggestion  # Remove empty initializer
-dotnet_diagnostic.RCS1043.severity = suggestion  # Remove partial modifier from type with single part
-dotnet_diagnostic.RCS1045.severity = suggestion  # Rename private field to camel case with underscore
-dotnet_diagnostic.RCS1048.severity = suggestion  # Use lambda expression instead of anonymous method
-dotnet_diagnostic.RCS1049.severity = suggestion  # Simplify boolean comparison
-dotnet_diagnostic.RCS1051.severity = suggestion  # Parenthesize condition in conditional expression
-dotnet_diagnostic.RCS1053.severity = suggestion  # Replace foreach with for
-dotnet_diagnostic.RCS1054.severity = suggestion  # Replace foreach with LINQ call
-dotnet_diagnostic.RCS1055.severity = suggestion  # Avoid semicolon at the end of declaration
-dotnet_diagnostic.RCS1057.severity = suggestion  # Add empty line between declarations
-dotnet_diagnostic.RCS1059.severity = suggestion  # Avoid locking on publicly accessible instance
-dotnet_diagnostic.RCS1069.severity = suggestion  # Remove unnecessary case label
-dotnet_diagnostic.RCS1071.severity = suggestion  # Remove redundant base constructor call
-dotnet_diagnostic.RCS1073.severity = suggestion  # Remove redundant partial modifier
-
-dotnet_diagnostic.RCS1192.severity = error
-
-# Optional: enable/disable other Roslynator rules
-dotnet_diagnostic.RCS1210.severity = warning  # Suggest readonly fields
-dotnet_diagnostic.RCS1004.severity = none     # Disable remove empty constructor
+dotnet_diagnostic.UNT0001.severity = warning
+dotnet_diagnostic.UNT0002.severity = warning
+dotnet_diagnostic.UNT0003.severity = warning
+dotnet_diagnostic.UNT0004.severity = warning
+dotnet_diagnostic.UNT0005.severity = warning
+dotnet_diagnostic.UNT0006.severity = warning
+dotnet_diagnostic.UNT0007.severity = warning
+dotnet_diagnostic.UNT0008.severity = warning
+dotnet_diagnostic.UNT0009.severity = warning
+dotnet_diagnostic.UNT0010.severity = warning
+dotnet_diagnostic.UNT0011.severity = warning
+dotnet_diagnostic.UNT0012.severity = warning
+dotnet_diagnostic.UNT0013.severity = warning
+dotnet_diagnostic.UNT0014.severity = warning
+dotnet_diagnostic.UNT0015.severity = warning
+dotnet_diagnostic.UNT0016.severity = warning
+dotnet_diagnostic.UNT0017.severity = warning
+dotnet_diagnostic.UNT0018.severity = warning
+dotnet_diagnostic.UNT0019.severity = warning
+dotnet_diagnostic.UNT0020.severity = warning
+dotnet_diagnostic.UNT0021.severity = warning
+dotnet_diagnostic.UNT0022.severity = warning
+dotnet_diagnostic.UNT0023.severity = warning
+dotnet_diagnostic.UNT0024.severity = warning
+dotnet_diagnostic.UNT0025.severity = warning
+dotnet_diagnostic.UNT0026.severity = warning
+dotnet_diagnostic.UNT0027.severity = warning
+dotnet_diagnostic.UNT0028.severity = warning
+dotnet_diagnostic.UNT0029.severity = warning
+dotnet_diagnostic.UNT0030.severity = warning
+dotnet_diagnostic.UNT0031.severity = warning
+dotnet_diagnostic.UNT0032.severity = warning
+dotnet_diagnostic.UNT0033.severity = warning
+dotnet_diagnostic.UNT0034.severity = warning
+dotnet_diagnostic.UNT0035.severity = warning
+dotnet_diagnostic.UNT0036.severity = warning
+dotnet_diagnostic.UNT0037.severity = warning
+dotnet_diagnostic.UNT0038.severity = warning
+dotnet_diagnostic.UNT0039.severity = warning
+dotnet_diagnostic.USP0001.severity = warning
+dotnet_diagnostic.USP0002.severity = warning
+dotnet_diagnostic.USP0003.severity = warning
+dotnet_diagnostic.USP0004.severity = warning
+dotnet_diagnostic.USP0005.severity = warning
+dotnet_diagnostic.USP0006.severity = warning
+dotnet_diagnostic.USP0007.severity = warning
+dotnet_diagnostic.USP0008.severity = warning
+dotnet_diagnostic.USP0009.severity = warning
+dotnet_diagnostic.USP0010.severity = warning
+dotnet_diagnostic.USP0011.severity = warning
+dotnet_diagnostic.USP0012.severity = warning
+dotnet_diagnostic.USP0013.severity = warning
+dotnet_diagnostic.USP0014.severity = warning
+dotnet_diagnostic.USP0015.severity = warning
+dotnet_diagnostic.USP0016.severity = warning
+dotnet_diagnostic.USP0017.severity = warning
+dotnet_diagnostic.USP0018.severity = warning
+dotnet_diagnostic.USP0019.severity = warning
+dotnet_diagnostic.USP0020.severity = warning
+dotnet_diagnostic.USP0021.severity = warning
+dotnet_diagnostic.USP0022.severity = warning
+dotnet_diagnostic.USP0023.severity = warning
