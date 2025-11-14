@@ -9,8 +9,7 @@
     }
   ],
   "dependencies": {
-    "org.nuget.errorprone.net.coreanalyzers": "0.1.2",
-    "org.nuget.microsoft.codeanalysis.netanalyzers": "10.0.100",
+    "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.unity.ai.navigation": "2.0.9",
     "com.unity.collab-proxy": "2.10.1",
     "com.unity.ide.rider": "3.0.38",
@@ -23,6 +22,9 @@
     "com.unity.timeline": "1.8.9",
     "com.unity.ugui": "2.0.0",
     "com.unity.visualscripting": "1.9.8",
+    "jp.hadashikick.vcontainer": "https://github.com/hadashiA/VContainer.git?path=VContainer/Assets/VContainer#1.17.0",
+    "org.nuget.errorprone.net.coreanalyzers": "0.1.2",
+    "org.nuget.microsoft.codeanalysis.netanalyzers": "10.0.100",
     "com.unity.modules.accessibility": "1.0.0",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
