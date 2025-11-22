@@ -157,6 +157,7 @@ dotnet_analyzer_diagnostic.category-Formatting.severity = suggestion
 
 
 # Force naming violations to be errors
+dotnet_diagnostic.IDE0058.severity = none
 dotnet_diagnostic.IDE1006.severity = warning
 dotnet_diagnostic.IDE1007.severity = warning
 dotnet_diagnostic.IDE1009.severity = warning
